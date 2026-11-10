@@ -1,0 +1,21 @@
+services:
+  noir:
+    build: .
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3000
+      SITE_ORIGIN: ${SITE_ORIGIN:?Set SITE_ORIGIN in .env}
+      TRUST_PROXY: "true"
+      DB_PATH: /app/data/noir.sqlite
+      UPLOAD_DIR: /app/uploads
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - noir-data:/app/data
+      - noir-uploads:/app/uploads
+
+volumes:
+  noir-data:
+  noir-uploads:
